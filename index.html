@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='mapApp'>
   <head>
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }
@@ -38,14 +38,17 @@
     <title>Paris Vélib</title>
   </head>
 
-  <body>
+  <body ng-cloack class='ng-cloak' ng-controller='mapCtrl' ng-init='initMap()'>
     <input id='pac-input' type="text" class='controls' placeholder="Recherche">
     <div id="map"></div>
 
-    <script type="text/javascript" src="init.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app/app.module.js"></script>
+    <script type="text/javascript" src="js/app/app.js"></script>
+
     <!-- Inclusion de l'API Javascript google maps avec la bibliothèque Places et les données propres à l'utilisateur google -->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5GfMpQO2o9qtjeSMg4yXf693Cu7nuLCM&callback=initMap&signed_in=true&libraries=places">
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5GfMpQO2o9qtjeSMg4yXf693Cu7nuLCM&signed_in=true&libraries=places">
     </script>
   </body>
 </html>
