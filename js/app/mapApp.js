@@ -76,8 +76,6 @@ angular.
               var cycleIcon = {
                 url: 'img/cycle.png',
                 size: new google.maps.Size(80, 51),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 0),
                 scaledSize: new google.maps.Size(40, 25)
               };
 
@@ -102,6 +100,23 @@ angular.
                   icon: image
                 });
                 marker.setMap(myMap);
+
+                contentString = '<div>'+
+                                  '<h4 class="text-center">Station n°'+station.fields.name+'</h4>'+
+                                  '<div class="station_address"> <img style="width:10px;" src="img/location.png" alt="adresse"/>'+
+                                    '<div>'+station.fields.address+'</div>'+
+                                  '</div>'+
+                                  '<div class="text-center dispos">Vélib disponibles: <h4>'+station.fields.available_bikes+' / '+station.fields.bike_stands+'</h4></div>'+
+                                '</div>';
+                var infos = new google.maps.InfoWindow({
+                  content: contentString
+                });
+
+                marker.addListener('click', function() {
+                  infos.open(myMap, marker);
+                });
+
+
               });
             },
             function(reponse){
