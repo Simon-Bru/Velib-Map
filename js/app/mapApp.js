@@ -81,7 +81,6 @@ angular.
 
               // En cas de succès, on place un marqueur pour chaque station
               angular.forEach(response.data, function(station, key){
-                console.log(station.fields);
                 // On définit l'icone à utiliser selon la disponibilité
                 var image;
                 switch (station.fields.available_bikes) {
@@ -102,14 +101,15 @@ angular.
                 marker.setMap(myMap);
 
                 contentString = '<div>'+
-                                  '<h4 class="text-center">Station n°'+station.fields.name+'</h4>'+
-                                  '<div class="station_address"> <img style="width:10px;" src="img/location.png" alt="adresse"/>'+
-                                    '<div>'+station.fields.address+'</div>'+
+                                  '<h4 class="text-center station_titles">Station n°'+station.fields.name+'</h4>'+
+                                  '<div class="station_address">'+
+                                    '<img style="width:25px;" src="img/location.png" alt="adresse"/>'+station.fields.address+''+
                                   '</div>'+
                                   '<div class="text-center dispos">Vélib disponibles: <h4>'+station.fields.available_bikes+' / '+station.fields.bike_stands+'</h4></div>'+
                                 '</div>';
                 var infos = new google.maps.InfoWindow({
-                  content: contentString
+                  content: contentString,
+                  pixelOffset: new google.maps.Size(-10, 0)
                 });
 
                 marker.addListener('click', function() {
