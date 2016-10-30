@@ -60,7 +60,7 @@ angular.
 
       $scope.addStations = function(myMap){
         // Appel asynchrone à l'API vélib opendata au format JSON
-        $http.get('http://opendata.paris.fr/api/records/1.0/download/?dataset=stations-velib-disponibilites-en-temps-reel&format=json')
+        $http.get('https://opendata.paris.fr/api/records/1.0/download/?dataset=stations-velib-disponibilites-en-temps-reel&format=json')
           .then(
             function(response){
               // On crée deux images de marqueurs
