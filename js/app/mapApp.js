@@ -109,7 +109,7 @@ angular.
                                 '</div>';
                 var infos = new google.maps.InfoWindow({
                   content: contentString,
-                  pixelOffset: new google.maps.Size(-10, 0)
+                  pixelOffset: new google.maps.Size(-20, 0)
                 });
 
                 marker.addListener('click', function() {
