@@ -3,6 +3,7 @@ angular.
   controller('mapCtrl', ['$scope', '$http',
     function($scope, $http){
       var map;
+      var current_window = null;
 
       $scope.initMap = function(){
 
@@ -81,7 +82,7 @@ angular.
 
               // En cas de succès, on place un marqueur pour chaque station
               angular.forEach(response.data, function(station, key){
-                // On définit l'icone à utiliser selon la disponibilité
+                // On définit l'icone à utiliser selon le nombre de vélos disponibles
                 var image;
                 switch (station.fields.available_bikes) {
                   case 0:
@@ -91,15 +92,18 @@ angular.
                     image = cycleIcon;
                 }
 
-
+                // On crée un objet LatLng pour la création du marqueur
                 var myLatlng = new google.maps.LatLng(station.geometry.coordinates[1],station.geometry.coordinates[0]);
+                // On crée le marqueur
                 var marker = new google.maps.Marker({
                   position: myLatlng,
                   title: 'Station '+station.fields.name,
                   icon: image
                 });
+                // On l'ajoute à la carte
                 marker.setMap(myMap);
 
+                // On définit le contenu de son info bulle avec les informations propres à la station
                 contentString = '<div>'+
                                   '<h4 class="text-center station_titles">Station n°'+station.fields.name+'</h4>'+
                                   '<div class="station_address">'+
@@ -107,21 +111,30 @@ angular.
                                   '</div>'+
                                   '<div class="text-center dispos">Vélib disponibles: <h4>'+station.fields.available_bikes+' / '+station.fields.bike_stands+'</h4></div>'+
                                 '</div>';
+                // On crée un objet fenetre d'information
                 var infos = new google.maps.InfoWindow({
                   content: contentString,
                   pixelOffset: new google.maps.Size(-20, 0)
                 });
 
+                // On déclenche un évènement lors du clic sur le marqueur
                 marker.addListener('click', function() {
+                  // Si une fenetre est ouverte, on la ferme
+                  if(current_window != null){
+                    current_window.close();
+                  }
+                  // On définit la fenêtre courante
+                  current_window = infos;
+                  // On ouvre la fenêtre propre au marqueur
                   infos.open(myMap, marker);
                 });
-
 
               });
             },
             function(reponse){
               // En cas d'erreur, on affiche un message d'erreur
               console.log(reponse);
+              document.getElementById("error").removeClass('hidden');
             }
           );
       };
