@@ -2,7 +2,7 @@
 <html ng-app='mapApp'>
   <head>
     <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
+      html, body { height: 100%; margin: 0; padding: 0; font-family: Roboto;}
       #map { height: 100%;}
       .controls {
         margin-top: 10px;
@@ -54,6 +54,20 @@
       .dispos h4 {
         margin-top: 0px;
       }
+
+      .alert {
+        background-color: #c0392b;
+        text-align: center;
+        z-index: 10;
+        box-shadow: 10px 0px black;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
     </style>
 
     <meta charset = 'utf-8'>
@@ -61,6 +75,9 @@
   </head>
 
   <body ng-cloack class='ng-cloak' ng-controller='mapCtrl' ng-init='initMap()'>
+    <div id="error" class="alert hidden">
+      Erreur du chargement de l'api, veuillez <a href="/">actualiser</a>
+    </div>
     <input id='pac-input' type="text" class='controls' placeholder="Recherche">
     <div id="map"></div>
 
